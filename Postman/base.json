@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "c97b7c1b-fecf-4ba0-85bf-d1835ba640ea",
+		"name": "314-api-tests",
+		"description": "This collection contains tests for the various API requests in the CS314 webapp.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "29600443-c97b7c1b-fecf-4ba0-85bf-d1835ba640ea"
+	},
+	"item": [
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "Config Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c939c70e-a81d-4b9a-a8d2-2e9f0fdf69fd",
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server-side team name is correct\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedTeamName = pm.collectionVariables.get(\"TEAM_NAME\");",
+									"    pm.expect(response.serverName).to.eql(expectedTeamName);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "f010a8dc-9fce-441b-9058-e3cadb8f8bbe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestType\": \"config\",\n    \"features\": [\"config\"] \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/config",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						},
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				}
+			],
+			"id": "08f823b2-27ce-42cb-8882-b932029fac40"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "83591448-905e-4e5e-9404-b4429d36d0be",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b3e4be3d-9389-4812-bead-6903690c74dc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "22c08a32-9998-468c-85d7-69413301b916",
+			"key": "BASE_URL",
+			"value": "http://localhost:8000"
+		},
+		{
+			"id": "5f2ce70e-9dbb-408b-8a9a-b178e433aa18",
+			"key": "TEAM_NAME",
+			"value": "t28 Dixies Midnight Runners"
+		}
+	]
+}

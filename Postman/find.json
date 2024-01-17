@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "36640782-368e-485a-85a7-a3c39bcbb64f",
+		"name": "find",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "29600443-36640782-368e-485a-85a7-a3c39bcbb64f"
+	},
+	"item": [
+		{
+			"name": "base",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cafdce0-5a69-48ce-82c6-a25ed7723906",
+						"exec": [
+							"pm.test(\"Response is HTTP404 status\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "44ca248d-df91-48ff-899b-3b19b2853b8e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"match\": \"denver\",\n    \"limit\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "hridayab: should return that less than or equal to 100 places were found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a399a79-a880-4e7a-8b55-a1b4a1e4edb9",
+						"exec": [
+							"pm.test(\"Response is less than or equal to 100\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.places.length).to.be.at.most(100);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "6dba1ee6-472d-464a-ba85-192e057a6fe9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestType\"    : \"find\",\r\n    \"match\"          : \"hen\",\r\n    \"type\"           : [\"airport\",\"heliport\"],\r\n    \"where\"          : [\"United States\",\"France\"],\r\n    \"limit\"          : 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "truongak",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d65e85a-8bc7-4c2b-a377-0d5d146f067e",
+						"exec": [
+							"pm.test(\"Response should have a 'places' array with a length of 100\", () => {",
+							"    pm.response.to.have.jsonBody('places.length', 100);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "44ca248d-df91-48ff-899b-3b19b2853b8e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"limit\": 0,\n    \"match\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "truongak",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9d65e85a-8bc7-4c2b-a377-0d5d146f067e",
+						"exec": [
+							"pm.test(\"Places should not be airport, heliport, or balloonport\", () => {",
+							"    var responseData = pm.response.json();",
+							"    var places = responseData.places;",
+							"    for (var i = 0; i < places.length; i++) {",
+							"        var place = places[i];",
+							"        pm.expect(place.type).to.not.include(\"airport\", \"Should not contain 'airport'\");",
+							"        pm.expect(place.type).to.not.include(\"heliport\", \"Should not contain 'heliport'\");",
+							"        pm.expect(place.type).to.not.include(\"balloonport\", \"Should not contain 'balloonport'\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "44ca248d-df91-48ff-899b-3b19b2853b8e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"find\",\n    \"limit\": 0,\n    \"match\": \"\",\n    \"type\": [\"other\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/find",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"find"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

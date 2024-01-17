@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "9ace8dcf-06cb-4d3d-9443-2d63b80f1c8c",
+		"name": "tour",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "29600443-9ace8dcf-06cb-4d3d-9443-2d63b80f1c8c"
+	},
+	"item": [
+		{
+			"name": "base",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd8640b6-2bf6-4786-8f6f-f3c8ed3f4f8c",
+						"exec": [
+							"pm.test(\"Response is HTTP400 status\", () => {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9d50480b-d3af-476f-a720-18a433c2ae44",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "truongak: test tour optimize certain places tour",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd8640b6-2bf6-4786-8f6f-f3c8ed3f4f8c",
+						"exec": [
+							"pm.test(\"Check if places are returned in the expected order\", function () {",
+							"    const actualOrder = pm.response.json().places.map(place => place.name);",
+							"    pm.expect(actualOrder).to.eql([\"C\", \"D\", \"A\", \"B\", \"E\"]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9d50480b-d3af-476f-a720-18a433c2ae44",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestType\": \"tour\",\n    \"earthRadius\": 3000.0,\n    \"response\": 10.010,\n    \"places\": [\n        {\n            \"name\": \"A\",\n            \"latitude\": \"30.0\",\n            \"longitude\": \"-90.0\"\n        },\n        {\n            \"name\": \"B\",\n            \"latitude\": \"35.0\",\n            \"longitude\": \"-80.0\"\n        },\n        {\n            \"name\": \"C\",\n            \"latitude\": \"25.0\",\n            \"longitude\": \"-70.0\"\n        },\n        {\n            \"name\": \"D\",\n            \"latitude\": \"32.0\",\n            \"longitude\": \"-110.0\"\n        },\n        {\n            \"name\": \"E\",\n            \"latitude\": \"40.0\",\n            \"longitude\": \"0.0\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/tour",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"tour"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
